@@ -280,9 +280,7 @@ SpriteEditor.prototype = {
 			if(currentLine == null) return false;
 			var element = document.querySelector(".action-btns");
 			
-			element.stopAnimation();
 			element.setStyle("top", (currentLine.offsetTop + 30 - this.scrollTop) + "px");
-			element.animation("ease-out", .15);
 		}
 
 		ebar.querySelector(".add-animation").onclick = function(e){
@@ -1125,12 +1123,10 @@ SpriteEditor.prototype = {
 		
 		element.show();
 
-		element.stopAnimation();
 		element.setStyle("right", "-300px");
 		element.setStyle("top", top + "px");
 
 		setTimeout(function(){
-			element.animation("ease-out", .15);
 			element.setStyle("right", 0);
 		}, 10);
 	}
