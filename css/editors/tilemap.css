@@ -1,0 +1,227 @@
+main #editor-container[data-type="tilemap"]{
+	background: #587DB5;
+}
+main #editor-container .tilemap-tool-bar{
+	display: block;position: absolute;
+	width: 100%;height: 48px;
+	left: 0;right: 0;top: 5px;
+	z-index: 20;
+	
+	padding: 0 20px;
+
+	background: #EFEFEF;
+	border-bottom: 1px solid #CCC;
+	color: #545454;
+}
+main #editor-container .tilemap-tool-bar .tool{
+	display: block;position: relative;
+	width: 50px;height: 48px;
+	
+	margin: 0 5px;
+
+	float: left;
+	
+	-webkit-transition: ease-out .1s;
+	   -moz-transition: ease-out .1s;
+	    -ms-transition: ease-out .1s;
+	     -o-transition: ease-out .1s;
+	        transition: ease-out .1s;
+}
+main #editor-container .tilemap-tool-bar .tool:after{
+	display: block;position: absolute;
+	width: 42px;height: 48px;
+	left: 4px;right: 4px;
+	top: 0;bottom: 0;
+	content: " ";
+	
+	background: url(../../imgs/sprite-editor-tilemap.png) left 2px no-repeat;
+	-webkit-background-size: 294px 42px;
+	     -o-background-size: 294px 42px;
+	        background-size: 294px 42px;
+	
+	-webkit-transition: ease-out .1s;
+	   -moz-transition: ease-out .1s;
+	    -ms-transition: ease-out .1s;
+	     -o-transition: ease-out .1s;
+	        transition: ease-out .1s;
+}
+main #editor-container .tilemap-tool-bar .tool[data-tool="solid-mode"]:after{background-position:-42px 2px}
+main #editor-container .tilemap-tool-bar .tool[data-tool="erase-mode"]:after{background-position:-84px 0}
+main #editor-container .tilemap-tool-bar .tool[data-tool="brush-mode"]:after{background-position:-168px 2px}
+main #editor-container .tilemap-tool-bar .tool[data-tool="shape-mode"]:after{background-position:-252px 2px}
+main #editor-container .tilemap-tool-bar .tool[data-tool="bucket-mode"]:after{background-position:-126px 2px}
+main #editor-container .tilemap-tool-bar .tool[data-tool="settings"]:after{background-position:-210px 2px}
+main #editor-container .tilemap-tool-bar .tool[data-tool="collapse"]:after,
+main #editor-container .tilemap-tool-bar .tool[data-tool="layerup"]:after,
+main #editor-container .tilemap-tool-bar .tool[data-tool="layerdown"]:after{background:none}
+main #editor-container .tilemap-tool-bar .tool[data-tool="collapse"] i.fa{font-size:1.8em;line-height:48px}
+main #editor-container .tilemap-tool-bar .tool:hover,
+main #editor-container .tilemap-tool-bar .tool.active{cursor:pointer;background:#ddd;border-bottom:3px solid #ccc;-webkit-transform: scale(1.1);
+   -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+     -o-transform: scale(1.1);
+        transform: scale(1.1);}
+main #editor-container .tilemap-tool-bar .tool.active{border-bottom-color:#e67e22;background:#f9943b}
+main #editor-container .tilemap-tool-bar .tool.disabled{
+	cursor: not-allowed !important;
+	-webkit-transform: scale(1) !important;
+	   -moz-transform: scale(1) !important;
+	    -ms-transform: scale(1) !important;
+	     -o-transform: scale(1) !important;
+	        transform: scale(1) !important;
+	background: none !important;
+	opacity: 0.2;
+}
+main #editor-container .tilemap-tool-bar .tool.icon{
+	text-align: center;
+	line-height: 50px;
+	color: #111;
+}
+
+main #editor-container .tilemap-tool-bar .sepa{
+	display: block;position: relative;
+	width: 6px;height: 40px;
+	margin: 4px 10px;
+	
+	border-left:1px solid #ddd;
+	border-right:1px solid #ddd;
+	float: left;
+}
+main #editor-container .tilemap-tool-bar .layer_info{
+	display: block;position: relative;
+	width: auto;height: 48px;
+	float: left;
+	
+	padding: 0 15px;
+
+	line-height: 48px;
+	font-family: "Open Sans", Helvetica, sans-serif;
+	font-size: 1.2em;font-weight: bold;
+	color: #383838;
+}
+
+main #editor-container .tilemap-selectzone{
+	display: block;position: fixed;
+	width: 0;height: 0;
+	top: 0;right: 0;
+	
+	/*background: #EFEFEF;*/
+	background: url(../../imgs/tilemapbg.png) repeat left top;
+	border: 2px solid #CCC;
+	border-top-width: 3px;
+	border-left-width: 8px;
+	border-right: none;
+	
+	-webkit-transition: ease-out .2s;
+	   -moz-transition: ease-out .2s;
+	    -ms-transition: ease-out .2s;
+	     -o-transition: ease-out .2s;
+	        transition: ease-out .2s;
+}
+main #editor-container .tilemap-overlay{
+	display: block;position: absolute;
+	width: 0;height: 0;
+	left: 0;top: 53px;
+	
+	background: url(../../imgs/tilemapbg.png) repeat left top;
+	z-index: -1;
+}
+
+.param-box{
+	display: none;position: absolute;
+	left: 0;right: 0;top: 0;bottom: 0;
+	
+	background: none;
+	z-index: 35;
+}
+.param-box.overlay{
+	background: rgba(0, 0, 0, 0.8);
+}
+.param-box .boxcontainer{
+	display: block;position: absolute;
+	width: 600px;height: 450px;
+	
+	background: #FFF;
+	-webkit-border-radius: 3px;
+	        border-radius: 3px;
+	
+	-webkit-transition: ease-out .2s;
+	   -moz-transition: ease-out .2s;
+	    -ms-transition: ease-out .2s;
+	     -o-transition: ease-out .2s;
+	        transition: ease-out .2s;
+}
+.param-box i.fa.close{
+	display: none;position: absolute;
+	top: 18px;right: 17px;
+	
+	color: #111;
+	font-weight: bold;
+	font-size: 1.1em;
+	font-weight: 300;
+	z-index: 1;
+	
+	font-size: 1.5em;
+	color: #383838;
+	
+	-webkit-transition: all 200ms ease-in;
+    -webkit-transform: scale(1); 
+    -ms-transition: all 200ms ease-in;
+    -ms-transform: scale(1); 
+    -moz-transition: all 200ms ease-in;
+    -moz-transform: scale(1);
+    transition: all 200ms ease-in;
+    transform: scale(1);
+}
+.param-box i.fa.close:hover{
+	-webkit-transition: all 200ms ease-in;
+    -webkit-transform: scale(1.2);
+    -ms-transition: all 200ms ease-in;
+    -ms-transform: scale(1.2);   
+    -moz-transition: all 200ms ease-in;
+    -moz-transform: scale(1.2);
+    transition: all 200ms ease-in;
+    transform: scale(1.2);
+	cursor: pointer;
+}
+.param-box .title{
+	display: block;position: relative;
+	width: 100%;height: 60px;
+	
+	line-height: 50px;
+	
+	font-family: "Open Sans", Helvetica, Arial;
+	letter-spacing: 0.8;
+	font-size: 1.2em;
+	color: #383838;
+	padding:0 15px;
+	
+	background: #EFEFEF;
+	border-bottom:2px solid #DDD;
+}
+.param-box .title .subtitle{
+	display: block;position: absolute;
+	top: 18px;
+	
+	font-size: 0.75em;
+	color: #A1A1A1;
+}
+.param-box .container{
+	display: block;position: relative;
+	width: 100%;height: calc(100% - 60px);
+	
+	padding: 10px 15px;
+}
+.param-box .container .input{margin:0}
+.param-box .container .input p{
+	color: #383838;
+	font-family: "Open Sans", Helvetica, Arial, sans-serif;
+	font-size: 0.9em;
+}
+.param-box .container .input label{
+	font-family: "Open Sans", Helvetica, Arial, sans-serif;
+}
+.param-box .container .next{
+	display: none;position: absolute;
+	bottom: 10px;right: 10px;
+}

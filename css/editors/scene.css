@@ -1,0 +1,475 @@
+#objectProperties{
+	display: block;position: fixed;
+	left: 400px;top: 200px;
+	width: 300px;height: auto;
+	z-index: 2;
+	
+	transform: scaleY(0);
+	max-height: 500px;
+	overflow-y: auto;
+
+	padding: 10px 0;
+	
+	background: #EFEFEF;
+	border-top: 2px solid #337AB7;
+	border-bottom: 3px solid #FA6900;
+	
+	-webkit-transition: ease-out .2s;
+	   -moz-transition: ease-out .2s;
+	    -ms-transition: ease-out .2s;
+	     -o-transition: ease-out .2s;
+	        transition: ease-out .2s;
+}
+
+#objectProperties.opened{
+	transform: scaleY(1);
+}
+
+#objectProperties .title{
+	display: block;position: relative;
+	width: 100%;height: 30px;
+	
+	line-height: 30px;
+	color: #383838;
+	
+	padding:0 10px;
+	margin-bottom: 15px;
+	
+	font-family: "Open Sans", Helvetica, Arial, sans-serif;
+	font-size: 0.9em;
+	font-weight: bold;
+	
+	background: #DDD;
+	border-bottom: 2px solid #CCC;
+	border-top: 1px solid #EEE;
+}
+
+#objectProperties .property{
+	display: block;position: relative;
+	width: 100%;height: auto;
+	
+	background: #DDD;
+	border-bottom: 1px solid #CCC;
+	
+	clear: both;
+}
+#objectProperties .property:first-child{border-top:1px solid #EEE}
+
+#objectProperties .property .left{
+	display: block;position: relative;
+	width: 35%;float: left;height: auto;
+	padding: 15px 10px;
+	
+	font-family: "Open Sans", Helvetica, Arial, sans-serif;
+	font-size: 0.9em;
+	font-weight: bold;
+	color: #111;
+	
+	text-align: left;
+}
+#objectProperties .property .right{
+	display: block;	position: relative;	
+	width: 65%;	height: auto;
+	float: right;
+	
+	font-family: "Open Sans", Helvetica, Arial, sans-serif;
+	font-size: 0.9em;
+	font-weight: 400;
+	color: #383838;
+	
+	margin: 0;padding: 10px;
+}
+
+#objectProperties .property .right input,
+#objectProperties .property .right select{
+	display: block;position: relative;
+	width: 100%;height: 30px;
+	
+	line-height: 30px;
+	padding: 0 15px;
+	margin: 5px 0;
+}
+#objectProperties .property .right select{font-size:1.05em;padding:0 5px;font-family:"Open Sans",Arial,sans-serif}
+#objectProperties .property .right input[type="checkbox"]{
+	height: 20px;
+	margin-top: 5px !important;
+}
+
+#objectProperties .property .right input:first-child,
+#objectProperties .property .right select:first-child{margin-top:0}
+#objectProperties .property .right input:last-child,
+#objectProperties .property .right select:first-child{margin-bottom:0}
+#objectProperties .property .right input[type=range]::-webkit-slider-runnable-track {
+	background: #CCC;
+}
+
+main #editor-container .rightPanel.scenePanel{
+	width: 300px;
+	background: #FFF;
+}
+main #editor-container .rightPanel.scenePanel .flow .main-comps, main #editor-container .rightPanel.scenePanel .flow .sub-comps{
+	width: 300px;
+}
+main #editor-container .rightPanel.scenePanel .bottom{border:none;margin-bottom:39px}
+main #editor-container .rightPanel.scenePanel .tabs{
+	display: block;position: relative;
+	width: 100%;height: 35px;
+	
+	margin: 0;margin-top: 5px;
+
+	background: #EFEFEF;
+	border-bottom: 1px solid #CCC;
+}
+main #editor-container .rightPanel.scenePanel .tabs .tab{
+	display: inline-block;position: relative;
+	width: 50%;height: 34px;
+	
+	border-right:1px solid #CCC;
+	text-align: center;
+	line-height: 33px;
+
+	color: #383838;
+	font-family: "Open Sans", Arial, sans-serif;
+	font-size: 0.8em;
+	border-bottom: 0px solid #ccc;
+	
+	margin-left: -5px;
+	
+	-webkit-transition: ease-out .1s;
+	   -moz-transition: ease-out .1s;
+	    -ms-transition: ease-out .1s;
+	     -o-transition: ease-out .1s;
+	        transition: ease-out .1s;
+}
+main #editor-container .rightPanel.scenePanel .tabs .tab:first-child{margin-left:0}
+main #editor-container .rightPanel.scenePanel .tabs .tab:hover{
+	color: #111;
+	background: #E6E6E6;
+	cursor: pointer;
+}
+main #editor-container .rightPanel.scenePanel .tabs .tab.active:hover,
+main #editor-container .rightPanel.scenePanel .tabs .tab.active{
+	background: #DDD;
+	border-bottom-width: 3px;
+	color: #111;
+	cursor: default;
+}
+main #editor-container .rightPanel.scenePanel .objects .object{
+	display: block;position: relative;
+	width: 100%;height: 30px;
+	padding:0 15px;
+	line-height:30px;
+	font-family:Helvetica, Arial;
+	font-size:0.9em;
+	border-bottom:1px solid #ECECEC;
+	
+	-webkit-transition: ease-out .15s;
+	   -moz-transition: ease-out .15s;
+	    -ms-transition: ease-out .15s;
+	     -o-transition: ease-out .15s;
+	        transition: ease-out .15s;
+}
+main #editor-container .rightPanel.scenePanel .objects .object:hover, 
+main #editor-container .rightPanel.scenePanel .objects .object.active{cursor:pointer;background:#deebf4}
+main #editor-container .rightPanel.scenePanel .objects .object.active{background:#BEDDF4}
+main #editor-container .rightPanel.scenePanel .objects .object input[type="text"]{
+	display: block;position: relative;
+	z-index:2;
+	height: 25px;width: calc(100% + 15px);
+	padding:0 7.5px;
+	margin-left:-7.5px;margin-top:2.5px;
+	background: #FAFAFA;
+	line-height:25px;
+}
+main #editor-container .rightPanel.scenePanel .objects .object.hidden:before{
+	display: block;position: absolute;
+	width: 32px;height: 30px;
+	top: 0;right: 0;
+	
+	content: "\f070";
+	
+	line-height: 30px;
+	font-family: FontAwesome;
+	font-size: 1.05em;
+	color: #777575;
+}
+main #editor-container .rightPanel.scenePanel .objects .object.active.hidden:before{display:none}
+
+main #editor-container .rightPanel.scenePanel .action-btns{
+	display: none;position: absolute;
+	width: auto;height: 30px;
+	right: 0;top: 0;
+	
+	padding-right: 15px;
+	z-index: 1;
+
+	line-height: 30px;
+	text-align: right;
+	font-size: 1.0em;
+	color: #898888;
+	
+	-webkit-transition: ease-out .2s;
+	   -moz-transition: ease-out .2s;
+	    -ms-transition: ease-out .2s;
+	     -o-transition: ease-out .2s;
+	        transition: ease-out .2s;
+}
+main #editor-container .rightPanel.scenePanel .action-btns i.fa{margin:0 2px}
+main #editor-container .rightPanel.scenePanel .action-btns i.fa:hover{color:#6D6C6C;cursor:pointer}
+
+main #editor-container .rightPanel.scenePanel .flow .box{
+	-webkit-transition: transform ease-out .2s;
+	   -moz-transition: transform ease-out .2s;
+	    -ms-transition: transform ease-out .2s;
+	     -o-transition: transform ease-out .2s;
+	        transition: transform ease-out .2s;
+}
+main #editor-container .rightPanel.scenePanel .flow .box.move{
+	position: fixed;
+	z-index: 2;
+	
+	-webkit-transform: rotate(3deg);
+	   -moz-transform: rotate(3deg);
+	    -ms-transform: rotate(3deg);
+	     -o-transform: rotate(3deg);
+	        transform: rotate(3deg);
+}
+main #editor-container .rightPanel.scenePanel .flow .box.disabled{
+	background: #F1F2F6;
+	cursor: not-allowed;
+}
+main #editor-container .rightPanel.scenePanel .flow .box.sub.disabled:after{
+	font-family: "Open Sans", Helvetica, Arial, sans-serif;
+	content: "Quota atteint";
+	color: #383838;
+	font-size: 0.9em;
+	line-height: 12px;
+}
+
+main #editor-container .scenePanel .properties .title{
+	display: block;position: relative;
+	width: 100%;height: 40px;
+	
+	background: #DDD;
+
+	line-height: 40px;
+	font-family: Helvetica, Arial, sana-serif;
+	font-size: 0.9em;font-weight: 600;
+	color: #252525;
+	padding:0 15px;
+}
+main #editor-container .scenePanel .properties .property{
+	display: block;position: relative;
+	width: 100%;height: auto;
+	
+	clear: both;
+}
+main #editor-container .scenePanel .properties .property .heading{
+	display: block;position: relative;
+	width: 100%;height: 30px;
+	
+	background: #EEE;
+	
+	line-height: 30px;
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 0.85em;font-weight: 500;
+	color: #383838;
+	padding:0 15px;
+	
+	border-bottom: 1px solid #ddd;
+}
+main #editor-container .scenePanel .properties .property .heading .remove{
+	display: block;position: absolute;
+	right: 0;top: 0;bottom: 0;
+	width: 30px;height: 30px;
+	
+	border-left: 1px solid #DEDEDE;
+	text-align: center;
+	line-height: 30px;
+	font-size: 1.4em;
+	color: #A79F9F;
+}
+main #editor-container .scenePanel .properties .property .heading .remove:hover{
+	cursor: pointer;
+	background: #DEDEDE;
+	font-size: 1.3em;
+}
+main #editor-container .scenePanel .properties .property .input{
+	display: block;position: relative;
+	width: 100%;height: auto;
+	margin: 0;padding: 0;
+	
+	background: #F2F5F6;
+	border-bottom: 1px solid #ddd;
+	clear: both;
+}
+main #editor-container .scenePanel .properties .property .input label{
+	display: block;position: relative;
+	width: 50%;height: auto;
+	margin: 0;
+	
+	float: left;
+	line-height: 30px;
+	font-family: Helvetica, Arial, sana-serif;
+	font-size: 0.9em;font-weight: 400;
+	text-transform: none;
+	color: #383838;
+	padding:0 15px;
+}
+main #editor-container .scenePanel .properties .property .input input,
+main #editor-container .scenePanel .properties .property .input select,
+main #editor-container .scenePanel .properties .property .input .dialoglink{
+	display: block;position: relative;
+	width: 50%;height: 30px;
+	margin: 0;
+	
+	float: left;
+	line-height: 30px;
+	font-family: "Open Sans", Helvetica, Arial, sana-serif;
+	font-size: 0.8em;
+	background: #FFF;
+	border-width: 1px;
+	color: #111;
+	padding:0 15px;
+}
+main #editor-container .scenePanel .properties .property .input input + input,
+main #editor-container .scenePanel .properties .property .input select + input,
+main #editor-container .scenePanel .properties .property .input input + select{left:50%}
+main #editor-container .scenePanel .properties .property .input .dialoglink{
+	color: #1c5b82;
+	text-decoration: underline;
+	cursor: pointer;
+	font-family: Arial, sans-serif;
+	border-left: 1px solid #DDD;
+}
+main #editor-container .scenePanel .properties .property .input .slider{
+	display: block;position: relative;
+	width: 50%;height: 50px;
+	margin: 0;
+	
+	background: #FFF;
+	float: left;
+	border-left: 1px solid #DDD;
+}
+main #editor-container .scenePanel .properties .property .input .rangeslider{
+	width: 80%;height: 50px;
+	margin: 0 10%;
+	float: right;
+}
+main #editor-container .scenePanel .properties .property .input .rangeslider .min-text,
+main #editor-container .scenePanel .properties .property .input .rangeslider .max-text{bottom:5px}
+main #editor-container .scenePanel .properties .property .input .rangeslider .range-container{margin-top:10px}
+main #editor-container .scenePanel .properties .property .input .rangeslider .realtime-text{bottom:5px;font-size:0.8em}
+
+main #editor-container .scenePanel .properties .add-behavior-button{
+	display: block;position: fixed;
+	width: 300px;height: auto;
+	bottom: 0;right: 0;
+	
+	padding: 10px 0;
+	text-align: center;
+	
+	background: #2980B9;
+	color: #FFF;
+	font-family:"Open Sans",Arial,sans-serif;
+	font-size: 0.9em;
+	
+	cursor: pointer;
+	
+	-webkit-transition: ease-out .2s;
+	   -moz-transition: ease-out .2s;
+	    -ms-transition: ease-out .2s;
+	     -o-transition: ease-out .2s;
+	        transition: ease-out .2s;
+}
+main #editor-container .scenePanel .properties .add-behavior-button:hover{
+	background: #2071a3;
+}
+
+#sceneEditor{
+	-webkit-user-select: none;
+     -khtml-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+         -o-user-select: none;
+        	user-select: none;
+}
+#sceneEditor.moving{
+	cursor: -webkit-grabbing;
+	cursor: -moz-grabbing;
+}
+#sceneEditor.transformover{
+	cursor: -webkit-grab;
+	cursor: -moz-grab;
+}
+
+main #editor-container[data-type="scene"] .tools-bar{
+	display: block;position: absolute;
+	left: 0;bottom: 0;right: 250px;
+	width: calc(100% - 300px);height: 40px;
+	
+	background: #FFF;
+	border-top: 3px solid #DDD;
+}
+main #editor-container[data-type="scene"] .tools-bar > *{display:block;position:relative;float:left;height:37px}
+main #editor-container[data-type="scene"] .tools-bar .tool-title{
+	background: #DEDEDE;
+	color: #383838;
+	
+	line-height: 37px;
+	padding: 0 15px;
+	
+	font-family: "Open Sans", Helvetica, sans-serif;
+	font-size: 0.9em;
+	font-weight: bold;
+}
+main #editor-container[data-type="scene"] .tools-bar div{
+	display: block;position: relative;
+	width: auto;height: 37px;
+	float: left;
+	
+	line-height: 37px;
+	padding: 0 10px;
+	font-family: "Open Sans", Helvetica, sans-serif;
+	font-size: .95em;
+}
+main #editor-container[data-type="scene"] .tools-bar .tool-input div:hover{background:#deebf4;cursor:pointer}
+main #editor-container[data-type="scene"] .tools-bar .tool-input div.active{background:#BEDDF4;cursor:default}
+
+#alert-container .component-choice{
+	display: block;position: relative;
+	width: 21%;height: 80px;
+	
+	margin: 5px 2%;	
+	text-align: center;
+	float: left;
+	
+	font-weight: bold;
+	border:0 solid #DDD;
+	
+	-webkit-transition: border ease-out .1s;
+	   -moz-transition: border ease-out .1s;
+	    -ms-transition: border ease-out .1s;
+	     -o-transition: border ease-out .1s;
+	        transition: border ease-out .1s;
+}
+#alert-container .component-choice:hover{background:#EFEFEF;cursor:pointer}
+#alert-container .component-choice.active{background:#EFEFEF;border:3px solid #DDD}
+#alert-container .component-choice.active i.fa{padding-top:7px}
+#alert-container .component-choice i.fa{
+	display: block;position: relative;
+	width: 100%;height: auto;
+	
+	text-align: center;
+	font-size: 2em;
+	
+	padding: 10px 0;
+	/*padding-bottom: 10px;*/
+	color: #e67e22;
+	
+	-webkit-transition: ease-out .1s;
+	   -moz-transition: ease-out .1s;
+	    -ms-transition: ease-out .1s;
+	     -o-transition: ease-out .1s;
+	        transition: ease-out .1s;
+}

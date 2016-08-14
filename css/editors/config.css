@@ -1,0 +1,120 @@
+/*.opts_menu a{
+	display: block;position: relative;
+	width: 184px;
+	padding:3px 8px;
+	text-decoration:none;
+	margin:5px 8px;
+}
+.opts_menu a:hover, .opts_menu a.active{background: #CCC;cursor:pointer}
+*/
+.opts_menu{
+	display: block;position: relative;
+	width: 100%;height: 60px;
+	
+	background: #EFEFEF;
+	border-bottom: 1px solid #ccc;
+	
+	text-transform: uppercase;
+
+	line-height: 60px;
+	color: #545454;
+	font-size: 1.2em;
+	font-family: "Open Sans";
+	font-weight: 400;
+	
+	clear: both;
+}
+
+.opts_menu a{
+	display: block;position: relative;
+	width: auto;height: 59px;
+	
+	line-height: 60px;
+	float: left;
+	
+	padding: 0 30px;
+	border-left:1px solid #CCC;
+	border-right:1px solid #CCC;
+}
+.opts_menu a:hover, .opts_menu a.active{
+	background: #e8e5e5;
+	cursor: pointer;
+}
+
+.opts_divs{
+	margin: 10px 30px;
+	clear: both;
+}
+
+.opts_divs h3.sub-title{
+	display: block;position: relative;
+	width: 100%;height: auto;
+	
+	font-family: "Open Sans", Helvetica, Arial, sans-serif;
+	font-size: 1.3em;
+	font-weight: 400;
+	border-left: 3px solid #2980b9;
+	padding-left: 15px;
+	
+	color: #383838;
+	margin: 10px 0;
+}
+.opts_divs form .input label{
+	display: block;position: relative;
+	width: 30%;height: 40px;
+	
+	line-height: 40px;
+	background: #EFEFEF;
+	border-left: 2px solid #ddd;
+	padding: 0 15px;
+	margin: 5px 0;
+
+	font-family: "Open Sans", Helvetica, Arial, sans-serif;
+	font-size: 0.9em;
+	font-weight: 600;
+	text-transform: none;
+	
+	color: #383838;
+	
+	float: left;
+}
+.opts_divs form .input input[type="text"],
+.opts_divs form .input input[type="number"],
+.opts_divs form .input input[type="file"],
+.opts_divs form .input select{
+	float: left;width: 70%;
+	margin: 0;
+	margin-top: 5px;
+}
+
+.opts_divs form .input{
+	width: 47.5%;
+	float: left;
+	clear: initial;
+	margin-right: 2.5%;
+}
+.opts_divs .overlay-premium{
+	display: block;position: relative;
+	width: 60%;height: 40px;
+	top: -45px;float: left;
+	margin-left: 40%;
+	padding: 0 20px;
+	
+	background: #DDD;
+	
+	line-height: 40px;
+	font-family: "Open Sans", Helvetica, Arial, sans-serif;
+	color: #656565;
+}
+.opts_divs .overlay-premium i.fa,
+.opts_divs .overlay-premium span{
+	font-weight: bold;
+	color: #F1C40F;
+}
+.opts_divs .overlay-premium span{color:#656565}
+.opts_divs .flat-checkbox{
+	margin:0;float:left;width:20%;top:5px;height:40px;border:5px solid #EEE
+}
+.opts_divs .flat-checkbox div{top:-17px}
+.opts_divs .flat-checkbox label:before{font-size:11px;top:0;left:5px}
+.opts_divs .flat-checkbox input[type=checkbox] ~ label{left:calc(100% - 40px)}

@@ -1,0 +1,231 @@
+
+main #editor-container #spriteEditorBar{
+	display: block;position: absolute;
+	right: 0;bottom: 0;top: 0;
+	width: 250px;height: 100%;
+	
+	/*opacity: 0;*/
+	
+	background: #EFEFEF;
+	border-top:2px solid #CCC;
+	
+	-webkit-transition: ease-out .2s;
+	   -moz-transition: ease-out .2s;
+	    -ms-transition: ease-out .2s;
+	     -o-transition: ease-out .2s;
+	        transition: ease-out .2s;
+}
+
+main #editor-container #spriteEditorBar .section{
+	display: block;position: relative;
+	width: 100%;height: auto;
+}
+main #editor-container #spriteEditorBar .section.preview{
+	display: block;position: absolute;
+	bottom: 0;right: 0;left: 0;
+	background: url(../../imgs/transparent.png) no-repeat center center;
+	width:250px;
+}
+main #editor-container #spriteEditorBar .section.animations{border-right:2px solid #DDD;overflow:hidden;overflow-y:auto;margin-bottom:260px}
+
+main #editor-container #spriteEditorBar .title{
+	display: block;position: relative;
+	width: 100%;height: 30px;
+	
+	background: #DDD;
+
+	line-height: 30px;
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 0.9em;font-weight: 600;
+	color: #383838;
+	padding:0 15px;
+}
+
+main #editor-container #spriteEditorBar .action-btns{
+	display: none;position: absolute;
+	width: auto;height: 30px;
+	right: 0;top: 0;
+	
+	padding-right: 15px;
+	z-index: 1;
+
+	line-height: 30px;
+	text-align: right;
+	font-size: 1.0em;
+	color: #898888;
+	
+	-webkit-transition: ease-out .2s;
+	   -moz-transition: ease-out .2s;
+	    -ms-transition: ease-out .2s;
+	     -o-transition: ease-out .2s;
+	        transition: ease-out .2s;
+}
+main #editor-container #spriteEditorBar .action-btns i.fa{margin:0 2px}
+main #editor-container #spriteEditorBar .action-btns i.fa:hover{color:#6D6C6C;cursor:pointer}
+
+main #editor-container #spriteEditorBar .animations-list{
+	display: block;position: relative;
+	width: 100%;height: 120px;
+	
+	overflow: hidden;
+	background: #FFF;
+	-ms-overflow-y: auto;
+	    overflow-y: auto;
+}
+main #editor-container #spriteEditorBar .animations-list .animation{
+	display: block;position: relative;
+	width: 100%;height: 30px;
+	padding:0 15px;
+	line-height:30px;
+	font-family:Helvetica, Arial;
+	font-size:0.9em;
+	border-bottom:1px solid #ECECEC;
+	
+	-webkit-transition: ease-out .15s;
+	   -moz-transition: ease-out .15s;
+	    -ms-transition: ease-out .15s;
+	     -o-transition: ease-out .15s;
+	        transition: ease-out .15s;
+}
+main #editor-container #spriteEditorBar .animations-list .animation:hover, 
+main #editor-container #spriteEditorBar .animations-list .animation.active{cursor:pointer;background:#deebf4}
+main #editor-container #spriteEditorBar .animations-list .animation.active{background:#BEDDF4}
+
+main #editor-container #spriteEditorBar .actions{
+	display: block;position: relative;
+	width: 100%;height: 30px;
+	margin-top: 3px;
+}
+main #editor-container #spriteEditorBar .actions .action{
+	display: block;position: relative;
+	width: 50%;height: 30px;
+	
+	line-height: 30px;
+	float: left;
+	
+	text-align: center;
+	
+	font-family: "Open Sans", Helvetica, Arial, sans-serif;
+	font-weight: 400;
+	font-size: 0.9em;
+	color: #FFF;
+	
+	border-bottom:2px solid red;
+	cursor: pointer;
+	
+	-webkit-transition: ease-out .2s;
+	   -moz-transition: ease-out .2s;
+	    -ms-transition: ease-out .2s;
+	     -o-transition: ease-out .2s;
+	        transition: ease-out .2s;
+}
+main #editor-container #spriteEditorBar .actions .action:nth-child(1){width:50%;background:#e67e22;border-color:#d35400}
+main #editor-container #spriteEditorBar .actions .action:nth-child(1):hover{background:#d35400}
+main #editor-container #spriteEditorBar .actions .action:nth-child(2){width:50%;background:#3498db;border-color:#2980b9}
+main #editor-container #spriteEditorBar .actions .action:nth-child(2):hover{background:#2980b9}
+main #editor-container #spriteEditorBar .actions .action:nth-child(3){width:50%;background:#2ecc71;border-color:#27ae60}
+main #editor-container #spriteEditorBar .actions .action:nth-child(3):hover{background:#27ae60}
+
+
+main #editor-container #spriteEditorBar .properties .property{
+	display: block;position: relative;
+	width: 100%;height: auto;
+	
+	clear: both;
+}
+main #editor-container #spriteEditorBar .properties .property .heading{
+	display: block;position: relative;
+	width: 100%;height: 30px;
+	
+	background: #EEE;
+	
+	line-height: 30px;
+	font-family: Helvetica, Arial, sana-serif;
+	font-size: 0.85em;font-weight: 500;
+	color: #383838;
+	padding:0 15px;
+	
+	border-bottom: 1px solid #ddd;
+}
+main #editor-container #spriteEditorBar .properties .property .heading .remove{
+	display: block;position: absolute;
+	right: 0;top: 0;bottom: 0;
+	width: 30px;height: 30px;
+	
+	border-left: 1px solid #DEDEDE;
+	text-align: center;
+	line-height: 30px;
+	font-size: 1.4em;
+	color: #A79F9F;
+}
+main #editor-container #spriteEditorBar .properties .property .heading .remove:hover{
+	cursor: pointer;
+	background: #DEDEDE;
+	font-size: 1.3em;
+}
+main #editor-container #spriteEditorBar .properties .property .input{
+	display: block;position: relative;
+	width: 100%;height: auto;
+	margin: 0;padding: 0;
+	
+	background: #F2F5F6;
+	border-bottom: 1px solid #ddd;
+	clear: both;
+}
+main #editor-container #spriteEditorBar .properties .property .input label{
+	display: block;position: relative;
+	width: 50%;height: auto;
+	margin: 0;
+	
+	float: left;
+	line-height: 30px;
+	font-family: Helvetica, Arial, sana-serif;
+	font-size: 0.9em;font-weight: 400;
+	text-transform: none;
+	color: #383838;
+	padding:0 15px;
+}
+main #editor-container #spriteEditorBar .properties .property .input input,
+main #editor-container #spriteEditorBar .properties .property .input select,
+main #editor-container #spriteEditorBar .properties .property .input .dialoglink{
+	display: block;position: relative;
+	width: 50%;height: 30px;
+	margin: 0;
+	
+	float: left;
+	line-height: 30px;
+	font-family: "Open Sans", Helvetica, Arial, sana-serif;
+	font-size: 0.8em;
+	background: #FFF;
+	border-width: 1px;
+	color: #111;
+	padding:0 15px;
+}
+main #editor-container #spriteEditorBar .properties .property .input input + input,
+main #editor-container #spriteEditorBar .properties .property .input select + input,
+main #editor-container #spriteEditorBar .properties .property .input input + select{left:50%}
+main #editor-container #spriteEditorBar .properties .property .input .dialoglink{
+	color: #1c5b82;
+	text-decoration: underline;
+	cursor: pointer;
+	font-family: Arial, sans-serif;
+	border-left: 1px solid #DDD;
+}
+main #editor-container #spriteEditorBar .properties .property .input .slider{
+	display: block;position: relative;
+	width: 50%;height: 50px;
+	margin: 0;
+	
+	background: #FFF;
+	float: left;
+	border-left: 1px solid #DDD;
+}
+main #editor-container #spriteEditorBar .properties .property .input .rangeslider{
+	width: 80%;height: 50px;
+	margin: 0 10%;
+	float: right;
+}
+main #editor-container #spriteEditorBar .properties .property .input .rangeslider .min-text,
+main #editor-container #spriteEditorBar .properties .property .input .rangeslider .max-text{bottom:5px}
+main #editor-container #spriteEditorBar .properties .property .input .rangeslider .range-container{margin-top:10px}
+main #editor-container #spriteEditorBar .properties .property .input .rangeslider .realtime-text{bottom:5px;font-size:0.8em}
