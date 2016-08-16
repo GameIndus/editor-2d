@@ -37,12 +37,12 @@
 </div>
 
 <div class="editor-bar tools-bar">
-	<div class="tool-title">Mode</div>
+	<!-- <div class="tool-title">Mode</div>
 	<div class="tool-input" id="click_mode">
 		<div class="active" value="selection"><i class="fa fa-mouse-pointer"></i></div>
 	    <div value="adding"><i class="fa fa-plus-square-o"></i></div>
 	    <div value="removing"><i class="fa fa-trash-o"></i></div>
-	</div>
+	</div> -->
 
 	<div class="tool-title">Transformation</div>
 	<div class="tool-input" id="scene_transformation">
