@@ -193,7 +193,7 @@ Application.prototype = {
 		var closes = document.getElementsByClassName("closeAlert");
 		for(var i=0;i<closes.length;i++){
 			closes[i].addEventListener("click", function(e){
-				callback(d);
+				callback(d, this.id);
 				alert.style.display = "none";
 				App.getSoundsManager().knuckle.play();
 			});

@@ -54,11 +54,11 @@ main #editor-container #spriteEditorBar .action-btns{
 	font-size: 1.0em;
 	color: #898888;
 	
-	-webkit-transition: ease-out .2s;
-	   -moz-transition: ease-out .2s;
-	    -ms-transition: ease-out .2s;
-	     -o-transition: ease-out .2s;
-	        transition: ease-out .2s;
+	-webkit-transition: right .2s ease-out;
+	   -moz-transition: right .2s ease-out;
+	    -ms-transition: right .2s ease-out;
+	     -o-transition: right .2s ease-out;
+	        transition: right .2s ease-out;
 }
 main #editor-container #spriteEditorBar .action-btns i.fa{margin:0 2px}
 main #editor-container #spriteEditorBar .action-btns i.fa:hover{color:#6D6C6C;cursor:pointer}

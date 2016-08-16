@@ -2197,7 +2197,7 @@ form .input.submit input[disabled]{
 }
 #export-container .container{
 	display: block;position: absolute;
-	width: 500px;height: 600px;
+	width: 500px;height: 500px;
 	top: 100px;left: calc(50% - 250px);
 	
 	background: #fff;
