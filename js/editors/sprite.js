@@ -305,9 +305,11 @@ SpriteEditor.prototype = {
 			if(self.previewAnim == null) return false;
 			var animName = self.previewAnim;
 
-			self.openAnimationRenameDialog(animName, function(newAnimName){
+			self.openAnimationRenameDialog(animName, function(newAnimName, trigger){
 				var anims   = cont.querySelectorAll(".animation");
 				var animDom = null;
+
+				if(trigger == "closeAlert" || animName == newAnimName) return false;
 
 				for(var i = 0; i < anims.length; i++)
 					if(anims[i].dataset.animName == animName) 
@@ -970,9 +972,9 @@ SpriteEditor.prototype = {
 			"<div class='input'><label for='animName'>Nom</label><input type='text' id='animName' placeholder=\"Nom de l 'animation\"></div>" +
 			"<div class='btn closeAlert'><i class='fa fa-male'></i> Créer</div><div class='clear'></div>", 
 			
-			function(){
+			function(div, trigger){
 				var an = document.getElementById("animName").value;
-				if(an == null || an == "") return false;
+				if(an == null || an == "" || trigger == "closeAlert") return false;
 
 				callback(an);
 			}
@@ -990,11 +992,11 @@ SpriteEditor.prototype = {
 			"<div class='input'><label for='animName'>Nom</label><input type='text' id='animName' value='" + animation + "' placeholder=\"Nom de l'animation\"></div>" +
 			"<div class='btn closeAlert'><i class='fa fa-pencil'></i> Renommer</div><div class='clear'></div>", 
 			
-			function(){
+			function(div, trigger){
 				var an = document.getElementById("animName").value;
 				if(an == null || an == "") return false;
 
-				callback(an);
+				callback(an, trigger);
 			}
 		, 500);
 
@@ -1069,9 +1071,10 @@ SpriteEditor.prototype = {
 		ctx.drawImage(this.ressource.image, 0, 0, srcSize.w, srcSize.h,
 					  offset.x, offset.y, drawSize.w, drawSize.h);
 
-		var p = offset;
-		var cw = c.width + (p.x * 2) + 1;
-		var ch = c.height + (p.y * 2) + 1;
+		var p   = offset;
+		var img = this.ressource.image;
+		var cw  = c.width + (p.x * 2) + 1;
+		var ch  = c.height + (p.y * 2) + 1;
 
 		var csm = {w: (that.ressource.getCellSize().w), h: (that.ressource.getCellSize().h)};
 		if(csm.w < 0){csm.w = srcSize.w;that.ressource.cellSize.w = srcSize.w;}
@@ -1102,13 +1105,12 @@ SpriteEditor.prototype = {
 		function drawBoard(){
 		    for (var x = 0; x <= gridSize.w; x += csm.w) {
 		        ctx.moveTo(0.5 + x + p.x, p.y);
-		        ctx.lineTo(0.5 + x + p.x, c.height + p.y);
+		        ctx.lineTo(0.5 + x + p.x, img.height + p.y);
 		    }
-
 
 		    for (var x = 0; x <= gridSize.h; x += csm.h) {
 		        ctx.moveTo(p.x, 0.5 + x + p.y);
-		        ctx.lineTo(c.width + p.x, 0.5 + x + p.y);
+		        ctx.lineTo(img.width + p.x, 0.5 + x + p.y);
 		    }
 
 		    ctx.strokeStyle = "#BBB";
