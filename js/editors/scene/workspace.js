@@ -327,10 +327,8 @@ SceneWorkspace.prototype = {
 		var o = new SceneObject(type, name).create();
 
 		if(type == "text") this.updateObjectProperty(o, "fontSize", o.getObject().getSize().h);
-		else if(type == "background"){
-			this.updateObjectProperty(o, "position", {x: 0, y: 0});
+		else if(type == "background")
 			this.updateObjectProperty(o, "size", {w: parseFloat(this.size.w), h: parseFloat(this.size.h)}, true);
-		}
 
 		this.getObjects().push(o);
 		return o;
