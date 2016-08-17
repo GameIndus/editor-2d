@@ -140,14 +140,14 @@ SceneSidebar.prototype = {
 		
 		var pos       = (!realtime) ? new Position(realPos.getX() - canvasRectangle.left, realPos.getY() - canvasRectangle.top) : realPos;
 		var entryName = (!realtime) ? this.generateEntryName(type) : name;
+		
+		if(!realtime)
+			this.editor.realtimeSend("depositobject", {posx: pos.getX(), posy: pos.getY(), type: type, name: entryName});
 
 		var o = this.editor.workspace.createObjectFromSidebar(type, entryName, pos, realtime);
 				
 		if(o.getType() == "sprite") this.editor.workspace.loadSpriteFor(o, name, realtime);
 		if(o.getType() == "tilemap") this.editor.workspace.loadTilemapFor(o, name, realtime);
-
-		if(!realtime)
-			this.editor.realtimeSend("depositobject", {posx: pos.getX(), posy: pos.getY(), type: type, name: entryName});
 
 		return o;
 	},
