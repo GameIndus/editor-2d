@@ -169,6 +169,8 @@ SceneWorkspace.prototype = {
 	reload: function(){
 		var self = this;
 
+		delete this.gameConfig;
+
 		// Reload tilemaps & sprites
 		// this.getObjectsByType("tilemap").promiseForEach(function(object){
 		// 	var tilemapFile = object.getProperty("tilemapfile");
@@ -653,9 +655,55 @@ SceneWorkspace.prototype = {
 	getGameScene: function(){
 		return this.gameScene;
 	},
+	getGameConfig: function(property){
+		var self = this;
+		if(this.gameConfig != null){
+			return this.gameConfig[property];
+			return false;
+		}
+		this.gameConfig = {};
+
+		new ConfigEditor().getConfig(function(config){
+			function isNormalInteger(str) {
+			    return /^\+?\d+$/.test(str);
+			}
+
+			if(config && config.size && isNormalInteger(config.size.w)) 
+				config.size.w = parseInt(config.size.w);
+			if(config && config.size && isNormalInteger(config.size.h)) 
+				config.size.h = parseInt(config.size.h);
+			if(config.size){
+				config.size.getWidth = function(){return this.w;}
+				config.size.getHeight = function(){return this.h;}
+			}
+
+			self.gameConfig = config;
+		});
+
+		return this.gameConfig[property];
+	},
 	updateBorders: function(){
-		if(this.size.w == -1 || this.size.h == -1) return false;
-		var ctx = Game.getContext();
+		if(this.size.w == -1 || this.size.h == -1 || (Game && Game.paused)) return false;
+		var ctx  = Game.getContext();
+		var size = this.getGameConfig("size");
+
+		var color = "#DDDDDD";
+
+		if(!size || isNaN(size.getWidth()) || isNaN(size.getHeight())) return false;
+		var width    = size.getWidth(), height = size.getHeight();
+		var startPos = this.convertWithCamera(new Position(0, 0)); 
+
+		// Draw GameZone Rectangle
+		ctx.strokeStyle = color;
+		ctx.setLineDash([5]);
+		ctx.lineWidth = 1;
+		ctx.strokeRect(startPos.getX(), startPos.getY(), width, height);
+		ctx.setLineDash([]);
+
+		// Draw GameZone text
+		ctx.fillStyle = color;
+		ctx.font = "12px Arial";
+		ctx.fillText("Zone de jeu (" + width + "x" + height + ")", startPos.getX(), startPos.getY() - 10);
 	},
 	drawCurrentObjectBounds: function(){
 		var object = this.currentObject;

@@ -196,7 +196,7 @@ Utils.prototype = {
 	        return gcd(b, a % b);
 	    }
 	    
-	    if(numerator=="100%"||denominator=="100%") return 'dynamique';        
+	    if(numerator=="100%"||denominator=="100%") return 'dyn.';        
 	    if (!Utils.isInteger(numerator) || !Utils.isInteger(denominator)) return '? : ?';
 	    if (numerator === denominator) return '1 : 1';
 	    

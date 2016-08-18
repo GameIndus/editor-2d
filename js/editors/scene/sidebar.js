@@ -4,7 +4,8 @@ function SceneSidebar(editor){
 	this.container = null;
 	this.tree      = {};
 
-	this.selectParams = null;
+	this.selectParams  = null;
+	this.compCollapsed = {};
 }
 
 SceneSidebar.prototype = {
@@ -159,14 +160,23 @@ SceneSidebar.prototype = {
 		this.renameEntry(oldName, name);
 		object.name = name;
 
+		if(this.compCollapsed[oldName] != null){
+			var collapseData = this.compCollapsed[oldName];
+			delete this.compCollapsed[oldName];
+			this.compCollapsed[name] = collapseData;
+		}
+
 		if(currentObject != null && currentObject.getName() == object.getName())
-			this.clickOnObject(this.getElementEntryByName(name), true);
+			this.clickOnObject(this.getElementEntryByName(name), true);	
 
 		if(!realtime) this.editor.realtimeSend("renameobject", {oname: oldName, newname: name});
 	},
 	removeObject: function(name, realtime){
 		this.removeEntry(name);
 		this.editor.workspace.removeObject(this.editor.workspace.getObjectByName(name));
+
+		if(this.compCollapsed[name] != null)
+			delete this.compCollapsed[name];
 		
 		if(this.editor.workspace.getCurrentObject() != null && this.editor.workspace.getCurrentObject().getName() == name) this.clickOnObject(null);
 		if(!realtime) this.editor.realtimeSend("removeobject", name);
@@ -537,6 +547,7 @@ SceneSidebar.prototype = {
 		this.loadPropertiesOf(null);
 		this.loadPropertiesOf(object);
 	},
+
 	fieldPropertyUpdate: function(element, sendToServer){
 		var sub      = (element.dataset.subproperty != null);
 		var property = element.parentNode.dataset.propertyname;
@@ -607,6 +618,20 @@ SceneSidebar.prototype = {
 			break;
 		}
 	},
+
+	componentIsCollapsed: function(object, componentName){
+		return (this.compCollapsed[object.getName()] != null && this.compCollapsed[object.getName()].indexOf(componentName) > -1);
+	},
+	collapseComponent: function(object, componentName){
+		var oname = object.getName();
+
+		if(this.compCollapsed[oname] == null) this.compCollapsed[oname] = new Array();
+		var collapsed = this.componentIsCollapsed(object, componentName);
+		
+		if(collapsed) this.compCollapsed[oname].splice(this.compCollapsed[oname].indexOf(componentName), 1);
+		else this.compCollapsed[oname].push(componentName);
+	},
+
 	parseComponent: function(object, component){
 		var div     = document.createElement("div");
 		var heading = document.createElement("div");
@@ -621,8 +646,16 @@ SceneSidebar.prototype = {
 
 		heading.innerHTML = component.getTitle();
 
+		if(Object.keys(component.getProperties()).length > 0)
+			heading.innerHTML += '<div class="collapse" data-cname="' + component.getName() + '"><i class="fa fa-angle-down"></i></div>';
+
+		// Auto-collapse when reload properties
+		if(self.componentIsCollapsed(object, component.getName()))
+			div.classList.add("collapsed");
+
 		if(component.canBeRemoved()){
 			heading.innerHTML += '<div class="remove" data-cname="' + component.getName() + '"><i class="fa fa-times"></i></div>';
+			heading.dataset.canremove = true;
 			heading.querySelector(".remove").onclick = function(){
 				var object 		  = self.editor.workspace.getCurrentObject();
 				var componentName = this.dataset.cname;
@@ -635,6 +668,21 @@ SceneSidebar.prototype = {
 
 				self.editor.realtimeSend("removeobjectbehavior", {objectname: object.getName(), behaviorname: componentName});
 				self.reloadPropertiesOf(object);
+			}
+		}
+
+		if(heading.querySelector(".collapse") != null){
+			heading.querySelector(".collapse").onclick = function(){
+				var object 		  = self.editor.workspace.getCurrentObject();
+				var componentName = this.dataset.cname;
+
+				var isCollapsed  = self.componentIsCollapsed(object, componentName);
+				var componentDiv = this.parentNode.parentNode;
+
+				if(isCollapsed) componentDiv.classList.remove("collapsed");
+				else componentDiv.classList.add("collapsed");
+
+				self.collapseComponent(object, componentName);
 			}
 		}
 

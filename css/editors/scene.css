@@ -279,6 +279,7 @@ main #editor-container .scenePanel .properties .property .heading{
 	
 	border-bottom: 1px solid #ddd;
 }
+main #editor-container .scenePanel .properties .property .heading .collapse,
 main #editor-container .scenePanel .properties .property .heading .remove{
 	display: block;position: absolute;
 	right: 0;top: 0;bottom: 0;
@@ -290,10 +291,38 @@ main #editor-container .scenePanel .properties .property .heading .remove{
 	font-size: 1.4em;
 	color: #A79F9F;
 }
+main #editor-container .scenePanel .properties .property .heading .collapse{font-size:1.4em!important}
+main #editor-container .scenePanel .properties .property .heading[data-canremove="true"] .collapse{right:30px}
+main #editor-container .scenePanel .properties .property .heading .collapse i.fa{
+	-webkit-transition: transform .2s ease-out;
+	   -moz-transition: transform .2s ease-out;
+	    -ms-transition: transform .2s ease-out;
+	     -o-transition: transform .2s ease-out;
+	        transition: transform .2s ease-out;
+}
+main #editor-container .scenePanel .properties .property .heading .collapse:hover,
 main #editor-container .scenePanel .properties .property .heading .remove:hover{
 	cursor: pointer;
 	background: #DEDEDE;
 	font-size: 1.3em;
+}
+main #editor-container .scenePanel .properties .property .content{
+	display: block;position: relative;
+	height: auto;overflow: hidden;
+	max-height: 600px;
+	-webkit-transition:max-height .2s ease-out;
+	   -moz-transition:max-height .2s ease-out;
+	    -ms-transition:max-height .2s ease-out;
+	     -o-transition:max-height .2s ease-out;
+	        transition:max-height .2s ease-out;
+}
+main #editor-container .scenePanel .properties .property.collapsed .content{max-height:0}
+main #editor-container .scenePanel .properties .property.collapsed .heading .collapse i.fa{
+	-webkit-transform: rotate(90deg);
+	   -moz-transform: rotate(90deg);
+	    -ms-transform: rotate(90deg);
+	     -o-transform: rotate(90deg);
+	        transform: rotate(90deg);
 }
 main #editor-container .scenePanel .properties .property .input{
 	display: block;position: relative;
