@@ -394,7 +394,14 @@ SceneSidebar.prototype = {
 
 	// Properties
 	loadPropertiesOf: function(object){
-		if(object == null){this.container.querySelector(".properties").innerHTML="";return false}
+		if(object == null){
+			this.container.querySelector(".properties").innerHTML="";
+			
+			if(this.container.querySelector(".add-behavior-button"))
+				this.container.querySelector(".add-behavior-button").remove();
+
+			return false;
+		}
 		if(this.editor.workspace.currentObject != null 
 			&& object.getName() == this.editor.workspace.currentObject.getName()
 			&& this.container.querySelector(".properties").innerHTML != "") return false;
@@ -530,12 +537,21 @@ SceneSidebar.prototype = {
 			var button = document.createElement("div");
 			button.className = "add-behavior-button";
 			button.innerHTML = "<i class='fa fa-plus'></i> Ajouter un comportement";
-			container.appendChild(button);
+			container.parentNode.parentNode.appendChild(button);
 
 			button.onclick = function(){
 				self.openBehaviorAddingMenuTo(object, optionalsCl);
 			};
 		}
+
+		// Reload container height
+		var tabsHeight = 40, listHeight = this.container.querySelector(".top").offsetHeight;
+		var sidebarHeight = this.container.offsetHeight, moreHeight = 0;
+
+		if(optionalsCl.length > 0) 
+			moreHeight += this.container.querySelector(".add-behavior-button").offsetHeight;
+
+		container.parentNode.style.height = (sidebarHeight - (tabsHeight + listHeight + moreHeight)) + "px";
 
 		// Load & init libraries
 		jscolor.bind();
@@ -599,7 +615,9 @@ SceneSidebar.prototype = {
 			return self.container.querySelector("*[data-propertyname='" + property + "'] " + tagName + ((subproperty != null) ? "[data-subproperty='" + subproperty + "']" : ""))
 		};
 		var field = getFieldByTagName("input") || getFieldByTagName("select");
+		
 		if(field == null) return false;
+		if(value == NaN) value = 0;
 
 		field.value = value;
 	},
