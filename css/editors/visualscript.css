@@ -11,10 +11,11 @@
 	width: 100%;height: 35px;
 	
 	line-height: 35px;
+	z-index: 1;
 	
-	color: #383838;
-	font-family: "Open Sans", Helvetica, Arial, sans-serif;
-	font-size: 0.9em;
+	color: #111;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 0.8em;
 	padding: 0 10px;
 }
 
@@ -105,9 +106,18 @@
 	height: 34px;
 	background: url(../../imgs/editors/visualscript/mid-bubbles.png) 0 -80px repeat-x;
 }
+.vs-workspace .module.module-event:before{
+	display: block;position: absolute;
+	bottom: 0;top: 0;left: -2px;
+	height: 34px;width: 22px;
+	content: " ";
+	cursor: move;
+	
+	background: url(../../imgs/editors/visualscript/bubbles.png) -66px -3px no-repeat;
+}
 .vs-workspace .module.module-event:after{
 	display: block;position: absolute;
-	bottom: 0;top: 0;right: -7px;
+	bottom: 0;top: 0;right: -2px;
 	height: 34px;width: 7px;
 	content: " ";
 	cursor: move;

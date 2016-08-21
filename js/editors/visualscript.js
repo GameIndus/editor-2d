@@ -861,7 +861,6 @@ VisualScriptEditor.prototype = {
 		return r;
 	}
 
-
 };
 
 var visualScriptEditor = null;
