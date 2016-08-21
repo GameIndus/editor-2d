@@ -193,7 +193,7 @@ SceneSidebar.prototype = {
 
 			customComponentsList = this.lastComponentsList;
 			customComponentsList.list = objs;
-		}else if(restoreData) return false;
+		}
 
 		if(customComponentsList == null){
 			cc.appendChild(this.generateComponentDiv("Texte", "text", "font"));
@@ -211,7 +211,7 @@ SceneSidebar.prototype = {
 			backBtn.className = "box back";
 			backBtn.setStyle("padding", "5px 10px");
 			cc.appendChild(backBtn);
-			backBtn.onclick=function(){that.reloadComponentsList()};
+			backBtn.onclick=function(){that.lastComponentsList=null;that.reloadComponentsList()};
 
 			customComponentsList.list.forEach(function(component){
 				var image = undefined;
@@ -274,6 +274,7 @@ SceneSidebar.prototype = {
 		});
 
 		if(name == "addObject") this.reloadComponentsList();
+		else this.lastComponentsList = null;
 	},
 
 
