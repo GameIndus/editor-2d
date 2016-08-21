@@ -103,6 +103,8 @@ VisualScriptEditor.prototype = {
 		var self = this;
 		if(!data) return false;
 
+		this.cleanWorkspace();
+
 		var us = this.unserialize(data);
 		var pushModule = function(module){
 			self.modules.push(module);
@@ -661,6 +663,15 @@ VisualScriptEditor.prototype = {
 		this.modules.promiseForEach(function(module){
 			module.update();
 		});
+	},
+	cleanWorkspace: function(){
+		for(var i = 0; i < this.modules.length; i++){
+			var module = this.modules[i];
+			if(module.domElement != null)
+				module.domElement.remove();
+		}
+
+		this.modules = [];
 	},
 
 
