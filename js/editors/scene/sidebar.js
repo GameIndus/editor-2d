@@ -10,10 +10,18 @@ function SceneSidebar(editor){
 SceneSidebar.prototype = {
 
 	init: function(){
+		var self = this;
 		this.container = document.querySelector(".scenePanel");
 		
 		this.container.setHeight(document.getElementById("editor-container").offsetHeight);
 		this.container.querySelector(".objects").setHeight(180);
+
+		// When files reloaded
+		function onFilesReloaded(){self.reloadComponentsList(null, true);}
+
+		var events = App.getFilesManager().onDomFilledEvents;
+		if(events.indexOf(onFilesReloaded) > -1) events.splice(events.indexOf(onFilesReloaded), 1);
+		App.getFilesManager().onDomFilled(onFilesReloaded);
 
 		this.initTriggers();
 	},
@@ -171,7 +179,7 @@ SceneSidebar.prototype = {
 		if(this.editor.workspace.getCurrentObject() != null && this.editor.workspace.getCurrentObject().getName() == name) this.clickOnObject(null);
 		if(!realtime) this.editor.realtimeSend("removeobject", name);
 	},
-	reloadComponentsList: function(customComponentsList){
+	reloadComponentsList: function(customComponentsList, restoreData){
 		var that = this;
 
 		// Reload components to add
@@ -179,6 +187,13 @@ SceneSidebar.prototype = {
 		if(cc == null) return false;
 
 		cc.innerHTML = "";
+		if(restoreData && this.lastComponentsList){
+			var type = this.lastComponentsList.type;
+			var objs = App.getFilesManager().getFilesByType(type);
+
+			customComponentsList = this.lastComponentsList;
+			customComponentsList.list = objs;
+		}
 
 		if(customComponentsList == null){
 			cc.appendChild(this.generateComponentDiv("Texte", "text", "font"));
@@ -196,7 +211,7 @@ SceneSidebar.prototype = {
 			backBtn.className = "box back";
 			backBtn.setStyle("padding", "5px 10px");
 			cc.appendChild(backBtn);
-			backBtn.onclick=function(){that.reloadComponentsList()};
+			backBtn.onclick=function(){that.lastComponentsList=null;that.reloadComponentsList()};
 
 			customComponentsList.list.forEach(function(component){
 				var image = undefined;
@@ -206,6 +221,7 @@ SceneSidebar.prototype = {
 			});
 		}
 
+		if(customComponentsList) this.lastComponentsList = customComponentsList;
 		this.reloadComponentsTriggers();
 	},
 	reloadComponentsTriggers: function(){
@@ -258,6 +274,7 @@ SceneSidebar.prototype = {
 		});
 
 		if(name == "addObject") this.reloadComponentsList();
+		else this.lastComponentsList = null;
 	},
 
 
