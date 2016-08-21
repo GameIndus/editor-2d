@@ -52,6 +52,9 @@ class Application{
 
 		if($this->isDevelopment() && !$user) redirect("https://gameindus.fr/connexion?n=" . base64_encode("http://" . $_SERVER['HTTP_HOST'] . $this->url . "/"));
 		if(empty($user) || $user == null) $this->error("Vous devez vous connecter pour pouvoir accéder à l'éditeur.");
+		if(!isAdmin($user) && $this->isDevelopment()){
+			redirect("https://gameindus.fr/editor/");
+		}
 
 		$this->user = $user;
 	}

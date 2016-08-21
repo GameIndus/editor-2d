@@ -13,27 +13,28 @@ VisualScriptImporter.prototype = {
 		var size = this.editor.editor.getEngineGame().getSize();
 		this.dom.setStyle("height", size.h + "px");
 
-		this.loadMenu();
+		this.loadCategories();
 		this.loadAddingSystem();
 	},
-	loadMenu: function(){
-		var that = this;
-		var boxsSections = this.dom.querySelectorAll(".flow .box.sub");
+	loadCategories: function(){
+		var self       = this;
+		var categories = this.dom.querySelectorAll(".categories .category");
 
-		for(var i = 0; i < boxsSections.length; i++){
-			var bs = boxsSections[i];
-			bs.onclick = function(e){
+		for(var i = 0; i < categories.length; i++){
+			var category = categories[i];
+
+			category.onclick = function(e){
 				e.preventDefault();
-				var section = this.dataset.section;
+				var category = this.dataset.category;
 
-				that.openSection(section);
+				for(var j = 0; j < categories.length; j++)
+					categories[j].classList.remove("active");
+				this.classList.add("active");
 
+				self.loadCategory(category);
 				return false;
 			}
 		}
-
-		// Go to main section by default
-		this.backToMainSection();
 	},
 	loadAddingSystem: function(){
 		var that = this;
@@ -79,144 +80,119 @@ VisualScriptImporter.prototype = {
 		});
 	},
 
-	openSection: function(name){
+	loadCategory: function(name){
 		var that     = this;
-		var sections = this.dom.querySelectorAll(".flow .section-sub");
-		var section  = null;
+		var flow     = this.dom.querySelector(".flow");
 
-		for(var i = 0; i < sections.length; i++) if(sections[i].dataset.section == name) section = sections[i];
-		if(section == null) return false;
-
-		for(var i = 0; i < sections.length; i++) sections[i].classList.add("hidden");
-		section.classList.remove("hidden");
-		this.dom.querySelector(".flow .main-section").classList.add("hidden");
-
-		this.dom.style.width = "350px";
-		this.dom.querySelector(".flow").classList.remove("main-section");
-		this.dom.parentNode.querySelector(".vs-trashbin").style.right = "370px";
-
-		var fakeMods  = section.querySelectorAll(".module");
-		var fakeTiles = section.querySelectorAll("h4");
-		var fakeBrs   = section.querySelectorAll("br");
-		for(var i = 0; i < fakeMods.length; i++) fakeMods[i].remove();
-		for(var i = 0; i < fakeTiles.length; i++) fakeTiles[i].remove();
-		for(var i = 0; i < fakeBrs.length; i++) fakeBrs[i].remove();
-		this.dom.querySelector(".flow").setStyle("height", (this.dom.offsetHeight * 380 / 548) + "px");
-
-		// Manage back button
-		var bbtn = document.getElementById("vsSidebarBackBtn");
-		bbtn.classList.remove("hidden");
-		bbtn.onclick = function(){
-			that.backToMainSection();
-		}
+		flow.innerHTML = "";
 
 		switch(name){
 			case "events":
-				section.innerHTML += this.generateFakeModule(ModuleType.EVENT, ModuleSubType.START);
-				section.innerHTML += this.generateFakeModule(ModuleType.EVENT, ModuleSubType.RENDERED);
-				section.innerHTML += this.generateFakeModule(ModuleType.EVENT, ModuleSubType.UPDATE);
-				section.innerHTML += this.generateFakeModule(ModuleType.EVENT, ModuleSubType.INTERVAL);
+				flow.innerHTML += this.generateFakeModule(ModuleType.EVENT, ModuleSubType.START);
+				flow.innerHTML += this.generateFakeModule(ModuleType.EVENT, ModuleSubType.RENDERED);
+				flow.innerHTML += this.generateFakeModule(ModuleType.EVENT, ModuleSubType.UPDATE);
+				flow.innerHTML += this.generateFakeModule(ModuleType.EVENT, ModuleSubType.INTERVAL);
 				
-				section.innerHTML += "<br><h4>Script</h4><br>";
+				flow.innerHTML += "<br><h4>Script</h4><br>";
 				
-				section.innerHTML += this.generateFakeModule(ModuleType.EVENT, ModuleSubType.REPEAT);
-				section.innerHTML += this.generateFakeModule(ModuleType.EVENT, ModuleSubType.REPEAT_INDEFINITELY);
-				section.innerHTML += this.generateFakeModule(ModuleType.EVENT, ModuleSubType.REPEAT_UNTIL);
+				flow.innerHTML += this.generateFakeModule(ModuleType.EVENT, ModuleSubType.REPEAT);
+				flow.innerHTML += this.generateFakeModule(ModuleType.EVENT, ModuleSubType.REPEAT_INDEFINITELY);
+				flow.innerHTML += this.generateFakeModule(ModuleType.EVENT, ModuleSubType.REPEAT_UNTIL);
 				
-				section.innerHTML += "<br><h4>Scène</h4><br>";
+				flow.innerHTML += "<br><h4>Scène</h4><br>";
 
-				section.innerHTML += this.generateFakeModule(ModuleType.EVENT, ModuleSubType.OBJECTS_COLLIDE);
+				flow.innerHTML += this.generateFakeModule(ModuleType.EVENT, ModuleSubType.OBJECTS_COLLIDE);
 
-				section.innerHTML += "<br><h4>Clavier / Souris</h4><br>";
+				flow.innerHTML += "<br><h4>Clavier / Souris</h4><br>";
 
-				section.innerHTML += this.generateFakeModule(ModuleType.EVENT, ModuleSubType.KEY_DOWN);
-				section.innerHTML += this.generateFakeModule(ModuleType.EVENT, ModuleSubType.KEY_UP);
-				section.innerHTML += this.generateFakeModule(ModuleType.EVENT, ModuleSubType.CLICK);
+				flow.innerHTML += this.generateFakeModule(ModuleType.EVENT, ModuleSubType.KEY_DOWN);
+				flow.innerHTML += this.generateFakeModule(ModuleType.EVENT, ModuleSubType.KEY_UP);
+				flow.innerHTML += this.generateFakeModule(ModuleType.EVENT, ModuleSubType.CLICK);
 			break;
 			case "logics":
-				section.innerHTML += this.generateFakeModule(ModuleType.LOGIC, ModuleSubType.IF);
-				section.innerHTML += this.generateFakeModule(ModuleType.LOGIC, ModuleSubType.ELSEIF);
-				section.innerHTML += this.generateFakeModule(ModuleType.LOGIC, ModuleSubType.ELSE);
-				section.innerHTML += this.generateFakeModule(ModuleType.LOGIC, ModuleSubType.WHILE);
+				flow.innerHTML += this.generateFakeModule(ModuleType.LOGIC, ModuleSubType.IF);
+				flow.innerHTML += this.generateFakeModule(ModuleType.LOGIC, ModuleSubType.ELSEIF);
+				flow.innerHTML += this.generateFakeModule(ModuleType.LOGIC, ModuleSubType.ELSE);
+				flow.innerHTML += this.generateFakeModule(ModuleType.LOGIC, ModuleSubType.WHILE);
 
-				section.innerHTML += "<br><h4>Conditions de base</h4><br>";
+				flow.innerHTML += "<br><h4>Conditions de base</h4><br>";
 
-				section.innerHTML += this.generateFakeModule(ModuleType.PART, ModuleSubType.COND_EQUAL);
-				section.innerHTML += this.generateFakeModule(ModuleType.PART, ModuleSubType.COND_NOT_EQUAL);
+				flow.innerHTML += this.generateFakeModule(ModuleType.PART, ModuleSubType.COND_EQUAL);
+				flow.innerHTML += this.generateFakeModule(ModuleType.PART, ModuleSubType.COND_NOT_EQUAL);
 
-				section.innerHTML += "<br><h4>Conditions spécifiques</h4><br>";
+				flow.innerHTML += "<br><h4>Conditions spécifiques</h4><br>";
 
-				section.innerHTML += this.generateFakeModule(ModuleType.PART, ModuleSubType.COND_CURRENT_SCENE);
-				section.innerHTML += this.generateFakeModule(ModuleType.PART, ModuleSubType.COND_MOUSE_POSITION);
-				section.innerHTML += this.generateFakeModule(ModuleType.PART, ModuleSubType.COND_MOUSE_ON_OBJECT);
-				section.innerHTML += this.generateFakeModule(ModuleType.PART, ModuleSubType.COND_OBJECT_ANIM_IS);
+				flow.innerHTML += this.generateFakeModule(ModuleType.PART, ModuleSubType.COND_CURRENT_SCENE);
+				flow.innerHTML += this.generateFakeModule(ModuleType.PART, ModuleSubType.COND_MOUSE_POSITION);
+				flow.innerHTML += this.generateFakeModule(ModuleType.PART, ModuleSubType.COND_MOUSE_ON_OBJECT);
+				flow.innerHTML += this.generateFakeModule(ModuleType.PART, ModuleSubType.COND_OBJECT_ANIM_IS);
 			break;
 			case "actions":
-				section.innerHTML += "<br><h4>Objets de jeu</h4><br>";
+				flow.innerHTML += "<br><h4>Objets de jeu</h4><br>";
 
-				section.innerHTML += this.generateFakeModule(ModuleType.ACTION, ModuleSubType.CREATE_GAMEOBJECT);
-				section.innerHTML += this.generateFakeModule(ModuleType.ACTION, ModuleSubType.MOVE_GAMEOBJECT);
-				section.innerHTML += this.generateFakeModule(ModuleType.ACTION, ModuleSubType.MOVE_GAMEOBJECT_LERP);
-				section.innerHTML += this.generateFakeModule(ModuleType.ACTION, ModuleSubType.MOVE_GAMEOBJECT_ADD);
-				section.innerHTML += this.generateFakeModule(ModuleType.ACTION, ModuleSubType.ROTATE_GAMEOBJECT);
-				section.innerHTML += this.generateFakeModule(ModuleType.ACTION, ModuleSubType.CHANGE_GAMEOBJECT_SIZE);
-				section.innerHTML += this.generateFakeModule(ModuleType.ACTION, ModuleSubType.CHANGE_GAMEOBJECT_LAYER);
-				section.innerHTML += this.generateFakeModule(ModuleType.ACTION, ModuleSubType.CHANGE_GAMEOBJECT_OPACITY);
-				section.innerHTML += this.generateFakeModule(ModuleType.ACTION, ModuleSubType.CHANGE_GAMEOBJECT_ANIM);
-				section.innerHTML += this.generateFakeModule(ModuleType.ACTION, ModuleSubType.CHANGE_GAMEOBJECT_COLOR);
-				section.innerHTML += this.generateFakeModule(ModuleType.ACTION, ModuleSubType.CHANGE_GAMEOBJECT_TEXTURE);
+				flow.innerHTML += this.generateFakeModule(ModuleType.ACTION, ModuleSubType.CREATE_GAMEOBJECT);
+				flow.innerHTML += this.generateFakeModule(ModuleType.ACTION, ModuleSubType.MOVE_GAMEOBJECT);
+				flow.innerHTML += this.generateFakeModule(ModuleType.ACTION, ModuleSubType.MOVE_GAMEOBJECT_LERP);
+				flow.innerHTML += this.generateFakeModule(ModuleType.ACTION, ModuleSubType.MOVE_GAMEOBJECT_ADD);
+				flow.innerHTML += this.generateFakeModule(ModuleType.ACTION, ModuleSubType.ROTATE_GAMEOBJECT);
+				flow.innerHTML += this.generateFakeModule(ModuleType.ACTION, ModuleSubType.CHANGE_GAMEOBJECT_SIZE);
+				flow.innerHTML += this.generateFakeModule(ModuleType.ACTION, ModuleSubType.CHANGE_GAMEOBJECT_LAYER);
+				flow.innerHTML += this.generateFakeModule(ModuleType.ACTION, ModuleSubType.CHANGE_GAMEOBJECT_OPACITY);
+				flow.innerHTML += this.generateFakeModule(ModuleType.ACTION, ModuleSubType.CHANGE_GAMEOBJECT_ANIM);
+				flow.innerHTML += this.generateFakeModule(ModuleType.ACTION, ModuleSubType.CHANGE_GAMEOBJECT_COLOR);
+				flow.innerHTML += this.generateFakeModule(ModuleType.ACTION, ModuleSubType.CHANGE_GAMEOBJECT_TEXTURE);
 
-				section.innerHTML += "<br><h4>Scènes</h4><br>";
+				flow.innerHTML += "<br><h4>Scènes</h4><br>";
 
-				section.innerHTML += this.generateFakeModule(ModuleType.ACTION, ModuleSubType.CHANGE_SCENE);
-				section.innerHTML += this.generateFakeModule(ModuleType.ACTION, ModuleSubType.REMOVE_GAMEOBJECT);
+				flow.innerHTML += this.generateFakeModule(ModuleType.ACTION, ModuleSubType.CHANGE_SCENE);
+				flow.innerHTML += this.generateFakeModule(ModuleType.ACTION, ModuleSubType.REMOVE_GAMEOBJECT);
 
-				section.innerHTML += "<br><h4>Autres</h4><br>";
+				flow.innerHTML += "<br><h4>Autres</h4><br>";
 
-				section.innerHTML += this.generateFakeModule(ModuleType.ACTION, ModuleSubType.WAIT);
-				section.innerHTML += this.generateFakeModule(ModuleType.ACTION, ModuleSubType.APPLY_VALUE_VARIABLE);
-				section.innerHTML += this.generateFakeModule(ModuleType.ACTION, ModuleSubType.ALERT);
-				section.innerHTML += this.generateFakeModule(ModuleType.ACTION, ModuleSubType.LOG);
+				flow.innerHTML += this.generateFakeModule(ModuleType.ACTION, ModuleSubType.WAIT);
+				flow.innerHTML += this.generateFakeModule(ModuleType.ACTION, ModuleSubType.APPLY_VALUE_VARIABLE);
+				flow.innerHTML += this.generateFakeModule(ModuleType.ACTION, ModuleSubType.ALERT);
+				flow.innerHTML += this.generateFakeModule(ModuleType.ACTION, ModuleSubType.LOG);
 			break;
 			case "parts":
 				var goSubtype = ModuleSubType.GAMEOBJECT;
 				goSubtype.text = goSubtype.text.replace("$1", "[]");
 
-				section.innerHTML += "<br><h4>Composants</h4><br>";
+				flow.innerHTML += "<br><h4>Composants</h4><br>";
 
-				section.innerHTML += this.generateFakeModule(ModuleType.PART, goSubtype);
-				section.innerHTML += this.generateFakeModule(ModuleType.PART, ModuleSubType.SCENE);
-				section.innerHTML += this.generateFakeModule(ModuleType.PART, ModuleSubType.POSITION);
-				section.innerHTML += this.generateFakeModule(ModuleType.PART, ModuleSubType.SIZE);
-				section.innerHTML += this.generateFakeModule(ModuleType.PART, ModuleSubType.ANIMATION);
-				section.innerHTML += this.generateFakeModule(ModuleType.PART, ModuleSubType.COLOR);
-				section.innerHTML += this.generateFakeModule(ModuleType.PART, ModuleSubType.TEXTURE);
+				flow.innerHTML += this.generateFakeModule(ModuleType.PART, goSubtype);
+				flow.innerHTML += this.generateFakeModule(ModuleType.PART, ModuleSubType.SCENE);
+				flow.innerHTML += this.generateFakeModule(ModuleType.PART, ModuleSubType.POSITION);
+				flow.innerHTML += this.generateFakeModule(ModuleType.PART, ModuleSubType.SIZE);
+				flow.innerHTML += this.generateFakeModule(ModuleType.PART, ModuleSubType.ANIMATION);
+				flow.innerHTML += this.generateFakeModule(ModuleType.PART, ModuleSubType.COLOR);
+				flow.innerHTML += this.generateFakeModule(ModuleType.PART, ModuleSubType.TEXTURE);
 
-				section.innerHTML += "<br><h4>Joueur</h4><br>";
+				flow.innerHTML += "<br><h4>Joueur</h4><br>";
 
-				section.innerHTML += this.generateFakeModule(ModuleType.PART, ModuleSubType.KEY);
-				section.innerHTML += this.generateFakeModule(ModuleType.PART, ModuleSubType.MOUSE);
+				flow.innerHTML += this.generateFakeModule(ModuleType.PART, ModuleSubType.KEY);
+				flow.innerHTML += this.generateFakeModule(ModuleType.PART, ModuleSubType.MOUSE);
 
-				section.innerHTML += "<br><h4>Mathématiques</h4><br>";
+				flow.innerHTML += "<br><h4>Mathématiques</h4><br>";
 
-				section.innerHTML += this.generateFakeModule(ModuleType.PART, ModuleSubType.MATHS_ADDITION);
-				section.innerHTML += this.generateFakeModule(ModuleType.PART, ModuleSubType.MATHS_SUBTRACTION);
-				section.innerHTML += this.generateFakeModule(ModuleType.PART, ModuleSubType.MATHS_MULTIPLICATION);
-				section.innerHTML += this.generateFakeModule(ModuleType.PART, ModuleSubType.MATHS_DIVISION);
+				flow.innerHTML += this.generateFakeModule(ModuleType.PART, ModuleSubType.MATHS_ADDITION);
+				flow.innerHTML += this.generateFakeModule(ModuleType.PART, ModuleSubType.MATHS_SUBTRACTION);
+				flow.innerHTML += this.generateFakeModule(ModuleType.PART, ModuleSubType.MATHS_MULTIPLICATION);
+				flow.innerHTML += this.generateFakeModule(ModuleType.PART, ModuleSubType.MATHS_DIVISION);
 				
-				section.innerHTML += this.generateFakeModule(ModuleType.PART, ModuleSubType.MATHS_SQUARE);
-				section.innerHTML += this.generateFakeModule(ModuleType.PART, ModuleSubType.MATHS_SQUARE_ROOT);
-				section.innerHTML += this.generateFakeModule(ModuleType.PART, ModuleSubType.MATHS_RANDOM);
+				flow.innerHTML += this.generateFakeModule(ModuleType.PART, ModuleSubType.MATHS_SQUARE);
+				flow.innerHTML += this.generateFakeModule(ModuleType.PART, ModuleSubType.MATHS_SQUARE_ROOT);
+				flow.innerHTML += this.generateFakeModule(ModuleType.PART, ModuleSubType.MATHS_RANDOM);
 
-				section.innerHTML += "<br><h4>Autres</h4><br>";
+				flow.innerHTML += "<br><h4>Autres</h4><br>";
 
-				section.innerHTML += this.generateFakeModule(ModuleType.PART, ModuleSubType.INTEGER);
-				section.innerHTML += this.generateFakeModule(ModuleType.PART, ModuleSubType.STRING);
-				section.innerHTML += this.generateFakeModule(ModuleType.PART, ModuleSubType.VARIABLE);
+				flow.innerHTML += this.generateFakeModule(ModuleType.PART, ModuleSubType.INTEGER);
+				flow.innerHTML += this.generateFakeModule(ModuleType.PART, ModuleSubType.STRING);
+				flow.innerHTML += this.generateFakeModule(ModuleType.PART, ModuleSubType.VARIABLE);
 			break;
 		}
 
-		fakeMods = section.querySelectorAll(".module");
+		var fakeMods = flow.querySelectorAll(".module");
 		for(var i = 0; i < fakeMods.length; i++){
 			var mod = fakeMods[i];
 			mod.onmousedown = function(e){
@@ -225,7 +201,7 @@ VisualScriptImporter.prototype = {
 		}
 
 		// Disable inputs
-		var inputs = section.querySelectorAll("input");
+		var inputs = flow.querySelectorAll("input");
 		for(var i = 0; i < inputs.length; i++){
 			var inp = inputs[i];
 			inp.onkeydown = function(e){
@@ -235,20 +211,6 @@ VisualScriptImporter.prototype = {
 				}
 			}
 		}
-	},
-	backToMainSection: function(){
-		// Hide sub-sections
-		var sections = this.dom.querySelectorAll(".flow .section-sub");
-		for(var i = 0; i < sections.length; i++) sections[i].classList.add("hidden");
-
-		// Show main section
-		this.dom.querySelector(".flow .main-section").classList.remove("hidden");
-		document.getElementById("vsSidebarBackBtn").classList.add("hidden");
-
-		this.dom.style.width = "250px";
-		this.dom.querySelector(".flow").classList.add("main-section");
-		this.dom.querySelector(".flow").scrollTop = 0;
-		this.dom.parentNode.querySelector(".vs-trashbin").style.right = "270px";
 	},
 
 	clickOnModule: function(module, e){
@@ -298,7 +260,7 @@ VisualScriptImporter.prototype = {
 		if(type == ModuleType.LOGIC || type == ModuleType.EVENT)
 			bars = '<div class="left-bar"></div><div class="sub-bar"></div>';
 
-		var html = '<div class="module module-' + ModuleType.getName(type).toLowerCase() + '" data-type="' + ModuleType.getName(type).toUpperCase() + '" data-subtype="' + ModuleSubType.getName(subtype).toUpperCase() + '" style="height:40px;"><span class="text-content">' + vsm.parseText(subtype.text) + '</span>' +bars + '</div>';
+		var html = '<div class="module module-' + ModuleType.getName(type).toLowerCase() + '" data-type="' + ModuleType.getName(type).toUpperCase() + '" data-subtype="' + ModuleSubType.getName(subtype).toUpperCase() + '"><span class="text-content">' + vsm.parseText(subtype.text) + '</span>' +bars + '</div>';
 
 		return html;
 	}

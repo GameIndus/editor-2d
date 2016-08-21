@@ -9,8 +9,8 @@ function VisualScriptModule(type, editor){
 	this.data     = [];
 	this.position = new Position();
 
-	this.size        = {w: 180, h: 40};
-	this.defaultSize = {w: 180, h: 40};
+	this.size        = {w: 180, h: 35};
+	this.defaultSize = {w: 180, h: 35};
 
 	// Don't touch this
 	this.lastPosition = null;
@@ -350,6 +350,10 @@ VisualScriptModule.prototype = {
 		this.domElement.querySelector(".text-content").innerHTML = "";
 		this.render(true, false);
 	},
+	getParsedContent: function(){
+		if(!this.subtype) return "*default_message*";
+		return this.parseText(this.subtype.text);
+	},
 	delete: function(){
 		var toRemove = this.getAllPartsChilds();
 
@@ -529,12 +533,6 @@ VisualScriptModule.prototype = {
 			currentChildY += child.getRenderHeight() + 1;
 		});
 
-		// Update height of module with parts' height
-		var maxHeight = this.getSize().h;
-		for(var i = 0; i < this.parts.length; i++)
-			if(this.parts[i].getSize().h > maxHeight) maxHeight = this.parts[i].getSize().h;
-		this.size.h = maxHeight;
-
 		this.updateParts();
 
 		this.subBarBottomY = currentChildY - this.defaultSize.h + 10 - 1 + 15;
@@ -688,18 +686,17 @@ VisualScriptModule.prototype = {
 
 		el.className = "module module-" + moduleName;
 
-		if(this.parent != null) el.classList.add("child-module");
-		else el.classList.remove("child-module");
-		if(this.partOf != null) el.classList.add("part-of");
-		else el.classList.remove("part-of");
+		function setClass(a,b,c){c?a.classList.add(b):a.classList.remove(b)}
 
-		if(this.lastElementInParent) el.classList.add("last-parent-module");
-		else el.classList.remove("last-parent-module");
+		setClass(el, "child-module", (this.parent != null));
+		setClass(el, "part-of", (this.partOf != null));
+		setClass(el, "last-parent-module", this.lastElementInParent);
+		setClass(el, "has-part", (this.parts.length > 0));
 
-		if(sb  != null) sb.className = "sub-bar";
-		if(lb  != null) lb.className = "left-bar";
-		if(st  != null) st.className = "text-content";
-		if(sc  != null) sc.className = "sub-caret";
+		if(sb != null) sb.className  = "sub-bar";
+		if(lb != null) lb.className  = "left-bar";
+		if(st != null) st.className  = "text-content";
+		if(sc != null) sc.className  = "sub-caret";
 		if(sch != null) sch.className = "sub-caret-hover";
 
 		// Styles
@@ -710,10 +707,8 @@ VisualScriptModule.prototype = {
 		if(sc != null && this.subBarBottomY > -1 && moduleName == "logic") sc.setStyle("bottom", "-" + (this.subBarBottomY + 10) + "px");
 		if(sch != null && this.subBarBottomY > -1 && moduleName == "logic") sch.setStyle("bottom", "-" + (this.subBarBottomY + 10 + 4) + "px");
 
-		if(st.innerHTML == ""){
-			st.innerHTML = "*default_message*";
-			if(this.subtype != null) st.innerHTML = this.parseText(this.subtype.text);
-		}
+		if(st.innerHTML == "") 
+			st.innerHTML = this.getParsedContent();
 
 		if(this.domElement != el){
 			el.appendChild(st);

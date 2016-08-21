@@ -46,7 +46,7 @@ VisualScriptEditor.prototype = {
 		this.workspace = document.getElementById("workspace");
 
 		this.importer.dom = document.querySelector(".vs-sidebar");
-		this.importer.loadMenu();
+		this.importer.loadCategories();
 
 		this.editor.game.getEventsManager().on("gameRendered", function(){
 			that.grid.update();
