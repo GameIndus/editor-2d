@@ -16,7 +16,7 @@
 			<div class="users-list" id="homepage-userslist">
 				<?php foreach ($_SESSION["project"]->users as $v): ?>
 					<div class="user">
-						<img src="https://gameindus.fr/imgs/avatars/<?= $v->id ?>.jpg" alt="Avatar de <?= $v->username ?>" class="avatar">
+						<img src="https://gameindus.fr<?= $v->avatar; ?>" alt="Avatar de <?= $v->username ?>" class="avatar">
 						<span class="username"><?= $v->username ?></span>
 
 						<div class="right">

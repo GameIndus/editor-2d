@@ -56,10 +56,10 @@ Tab.prototype = {
 		if(this.dom == null) return false;
 		var el = this.dom;
 
-		var path = this.pathR || "/";
+		var path = "/";
 		if(App.getFilesManager().currentFolder != null) path += App.getFilesManager().currentFolder;
 
-		el.innerHTML = '<i class="fa tab-icon fa-' + Utils.getIconFromType(this.type) + '"></i><span class="name">' + this.name + '</span><span class="path">' + path + '</span>';
+		el.innerHTML = '<span class="icon icon-' + this.type + '"></span><span class="name">' + this.name + '</span><span class="path">' + path + '</span>';
 		el.dataset.file = this.name;
 		el.dataset.type = this.type;
 		el.dataset.path = path;

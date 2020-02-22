@@ -70,7 +70,7 @@ function timeToString(time, simple){
 
 function formatFilename(str){
 	if(str == null) return "";
-	return str.toString().replaceAll(" ", "-");
+	return str.toString().replaceAll(" ", "-").toLowerCase();
 }
 
 function guid(){

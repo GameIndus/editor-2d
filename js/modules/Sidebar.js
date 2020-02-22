@@ -256,7 +256,7 @@ Sidebar.prototype = {
 				var o = this.lastFileObject;
 
 				this.openRemoveConfirmDialog(function(path, folder){
-					that.remove(path, folder);
+					that.remove(path, folder, o);
 				}, o.path, o.folder);
 			break;
 		}
@@ -438,7 +438,6 @@ Sidebar.prototype = {
 
 			}
 		}
-
 	},
 	rename: function(path, oldName, newName, folder){
 		var that = this;
@@ -457,18 +456,21 @@ Sidebar.prototype = {
 			App.getFilesManager().refreshFiles(function(files){
 				that.restoreDom();
 
+				if(!folder) Tabs.rename(oldName, that.lastFile.type, newName);
+
 				if(router.getCurrentView().name == oldName.toLowerCase() && !folder){
 					router.removeView(that.lastFile.type + "-" + oldName.toLowerCase());
-					router.removeView(that.lastFile.type + "-" + newName.toLowerCase());
-
-					URLUtils.setHash(that.lastFile.type + "-" + newName.toLowerCase());
+					App.getRouter().changeViewTo(that.lastFile.type, newName);
 				}
 
-				if(!folder) Tabs.rename(oldName, that.lastFile.type, newName);
 			});
 		}, "files").send();
+
+		// Rename fileData in cache (realtime server)
+		if(!folder)
+			network.request("renameFileData", {type: this.lastFile.type, filename: oldName, newname: LZString.compressToBase64(newName)}, null, "files", "realtime").send();
 	},
-	remove: function(path, folder){
+	remove: function(path, folder, fileObject){
 		var that = this;
 
 		var sf = path.split("/");
@@ -489,6 +491,10 @@ Sidebar.prototype = {
 				if(tab != null) Tabs.closeTab(tab.dom);
 			}
 		}, "files").send();
+
+		// Remove cache (realtime server)
+		if(!folder)
+			network.request("removeFileData", {type: fileObject.type, filename: fileObject.name}, null, "files", "realtime").send();
 	},
 
 	// Dialogs menu

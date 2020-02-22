@@ -1009,7 +1009,7 @@ SpriteEditor.prototype = {
 	openImageOptionsDialog: function(callback){
 		var that = this;
 
-		var cellSize = {w: Math.ceil(this.ressource.getSize().w / this.ressource.getCellSize().w), h: Math.ceil(this.ressource.getSize().h / this.ressource.getCellSize().h)};
+		var cellSize = {w: Math.floor(this.ressource.getSize().w / this.ressource.getCellSize().w), h: Math.floor(this.ressource.getSize().h / this.ressource.getCellSize().h)};
 		if(cellSize.w < 0) cellSize.w = 0;
 		if(cellSize.h < 0) cellSize.h = 0;
 
